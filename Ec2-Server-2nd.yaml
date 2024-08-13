@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: A CloudFormation template to create multiple EC2 instances
+
+Resources:
+  EC2Instance1:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: 't2.micro'
+      ImageId: 'ami-0ae8f15ae66fe8cda'  # Replace with your desired AMI ID
+      
+      
+      Tags:
+        - Key: Name
+          Value: EC2Instance1
+
+  EC2Instance2:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: 't2.micro'
+      ImageId: 'ami-0ae8f15ae66fe8cda'  # Replace with your desired AMI ID
+      
+   
+      Tags:
+        - Key: Name
+          Value: EC2Instance2
+
+  EC2Instance3:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: 't2.micro'
+      ImageId: 'ami-0ae8f15ae66fe8cda'  # Replace with your desired AMI ID
+    
+      
+      Tags:
+        - Key: Name
+          Value: EC2Instance3
