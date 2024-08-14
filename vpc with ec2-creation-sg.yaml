@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: A template to launch EC2 instances with a security group.
+
+Resources:
+  MySecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: 'Security group for EC2 instances'
+      VpcId: 'vpc-0335c8fa1e28b3956'  # Replace with your VPC ID
+      SecurityGroupIngress:
+        - IpProtocol: 'tcp'
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: '0.0.0.0/0'  # Allows SSH from anywhere (use with caution)
+        - IpProtocol: 'tcp'
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: '0.0.0.0/0'  # Allows HTTP from anywhere
+      SecurityGroupEgress:
+        - IpProtocol: '-1'
+          CidrIp: '0.0.0.0/0'  # Allows all outbound traffic
+
+  EC2Instance1:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: 't2.micro'
+      ImageId: 'ami-0ae8f15ae66fe8cda'  # Replace with your AMI ID
+      KeyName: 'Ansible.key'  # Replace with your key pair name
+      SecurityGroups:
+        - !Ref MySecurityGroup
+      Tags:
+        - Key: Name
+          Value: 'EC2Instance1'
+
+  EC2Instance2:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: 't2.micro'
+      ImageId: 'ami-0ae8f15ae66fe8cda'  # Replace with your AMI ID
+      KeyName: 'Ansible.key'  # Replace with your key pair name
+      SecurityGroups:
+        - !Ref MySecurityGroup
+      Tags:
+        - Key: Name
+          Value: 'EC2Instance2'
+
+Outputs:
+  SecurityGroupID:
+    Description: 'The ID of the security group'
+    Value: !Ref MySecurityGroup
+
+  Instance1ID:
+    Description: 'Instance ID of the first EC2 instance'
+    Value: !Ref EC2Instance1
+
+  Instance2ID:
+    Description: 'Instance ID of the second EC2 instance'
+    Value: !Ref EC2Instance2
